@@ -1,0 +1,62 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-bq-parent-flow'
+###
+name: BiqQuery (hw-q3)
+description: null
+version: eabd31524d1cf61f439bed0687b5f3c9
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  months:
+  - 2
+  - 3
+  year: 2019
+  color: yellow
+schedule: null
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-bq-parent-flow
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: d1955341-8ce1-492f-9fc6-819b40c0f99d
+  _block_document_name: anonymous-ea1ee5a8-25fc-4073-9de9-860f72b7d08f
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage: null
+path: /Users/matthewfinnegan/Documents/de_course/week_2
+entrypoint: flows/2_gcp/etl_gcs_to_bq_hw.py:etl_bq_parent_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    months:
+      title: months
+      position: 0
+      type: array
+      items:
+        type: integer
+    year:
+      title: year
+      position: 1
+      type: integer
+    color:
+      title: color
+      position: 2
+      type: string
+  required:
+  - months
+  - year
+  - color
+  definitions: null
