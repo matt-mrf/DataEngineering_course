@@ -12,6 +12,7 @@ def fetch(dataset_url: str) -> pd.DataFrame:
     """Read taxi data from web into pandas dataframe"""
 
     df = pd.read_csv(dataset_url)
+    print(f"Dataset has {len(df)} rows.")
     return df
 
 
@@ -41,11 +42,8 @@ def write_gcs(path: Path) -> None:
 
 
 @flow()
-def etl_web_to_gcs() -> None:
+def etl_web_to_gcs(year: int, month: int, color: str) -> None:
     """The main ETL function"""
-    color = "yellow"
-    year = 2021
-    month = 1
     dataset_file = f"{color}_tripdata_{year}-{month:02}"
     dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{dataset_file}.csv.gz"
 
@@ -55,5 +53,17 @@ def etl_web_to_gcs() -> None:
     write_gcs(path)
 
 
+@flow()
+def etl_parent_flow(
+    months: list[int] = [1, 2], year: int = 2021, color: str = "yellow"
+):
+    for month in months:
+        print(f"Starting task for month {month}, {year}, color: {color}.")
+        etl_web_to_gcs(year, month, color)
+
+
 if __name__ == "__main__":
-    etl_web_to_gcs()
+    color = "green"
+    months = [11]
+    year = 2020
+    etl_parent_flow(months, year, color)
