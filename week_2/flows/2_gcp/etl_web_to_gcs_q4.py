@@ -13,6 +13,7 @@ def fetch(dataset_url: str) -> pd.DataFrame:
 
     df = pd.read_csv(dataset_url)
     print(f"Dataset has {len(df)} rows.")
+    print(df.columns)
     return df
 
 
@@ -48,9 +49,9 @@ def etl_web_to_gcs(year: int, month: int, color: str) -> None:
     dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{dataset_file}.csv.gz"
 
     df = fetch(dataset_url)
-    df_clean = clean(df)
-    path = write_local(df_clean, color, dataset_file)
-    write_gcs(path)
+    # df_clean = clean(df)
+    # path = write_local(df_clean, color, dataset_file)
+    # write_gcs(path)
 
 
 @flow()
